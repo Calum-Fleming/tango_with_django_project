@@ -48,9 +48,10 @@ def index(request):
 
 def about(request):
     context_dict = {'boldmessage': 'This tutorial has been put together by Calum Fleming, 2594251f'}
-    if request.session.test_cookie_worked():
-        print("TEST COOKIE WORKED!")
-        request.session.delete_test_cookie()
+
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+
 
     return render(request, 'rango/about.html', context=context_dict)
 
@@ -166,7 +167,7 @@ def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
     last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
     last_visit_time = datetime.strptime(last_visit_cookie[:7], 
-                                         '%Y-%m') 
+                                          '%Y-%m') 
 
     if(datetime.now() - last_visit_time).days > 0:
         visits = visits +1
