@@ -139,3 +139,7 @@ MEDIA_URL = '/media/'
 # Restricted redirecting
 
 LOGIN_URL = 'rango:login'
+
+# cookies
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
